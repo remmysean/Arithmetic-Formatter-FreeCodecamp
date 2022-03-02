@@ -1,52 +1,63 @@
-def arithmetic_arranger(problems, val=False):
-    arranged_problems = ''
-    if len(problems) > 5:
-        arranged_problems = "Error: Too many problems."
-        return arranged_problems
+def arithmetic_arranger(questions, answer=False):
+  
+    if len(questions) > 5:
+        return "Error:The questions should not exceed five."
+    
+    operator, op1, op2 = []
+   
 
-    # list of all operations in str format
-    operations = list(map(lambda x: x.split()[1], problems))
-    if set(operations) != {'+', '-'} and len(set(operations)) != 2:
-        arranged_problems = "Error: Operator must be '+' or '-'."
-        return arranged_problems
+    for question in questions:
+        pieces = problem.split()
+       op1.append(pieces[0])
+        operator.append(pieces[1])
+        op2.append(pieces[2])
 
-    numbers = []  # list of all operands in str format
-    for i in problems:
-        p = i.split()
-        numbers.extend([p[0], p[2]])
+    # Checking for * or / operators
+    if "/" in operator or "*" in operator:
+        return "Error: Operator must be '+' or '-' only."
+    
+     # Checking length
+    for i in range(len(op1)):
+        if len(op1[i]) > 4 or len(second_operand[i]) > 4:
+            return "Error: Numbers cannot exceed four digits."
 
-    if not all(map(lambda x: x.isdigit(), numbers)):
-        arranged_problems = "Error: Numbers must only contain digits."
-        return arranged_problems
+    # Checking digits
+    for i in range(len(op1)):
+        if not (op1[i].isdigit() and op2[i].isdigit()):
+            return "Error: Digits only !!."
 
-    if not all(map(lambda x: len(x) < 5, numbers)):
-        arranged_problems = "Error: Numbers cannot be more than four digits."
-        return arranged_problems
+   
 
-    top_row = ''
-    dashes = ''
-    values = list(map(lambda x: eval(x), problems))
-    solutions = ''
-    for i in range(0, len(numbers), 2):
-        space_width = max(len(numbers[i]), len(numbers[i+1])) + 2
-        top_row += numbers[i].rjust(space_width)
-        dashes += '-' * space_width
-        solutions += str(values[i // 2]).rjust(space_width)
-        if i != len(numbers) - 2:
-            top_row += ' ' * 4
-            dashes += ' ' * 4
-            solutions += ' ' * 4
+  line1,  line2,  line3,  line4 = []
+    
 
-    bottom_row = ''
-    for i in range(1, len(numbers), 2):
-        space_width = max(len(numbers[i - 1]), len(numbers[i])) + 1
-        bottom_row += operations[i // 2]
-        bottom_row += numbers[i].rjust(space_width)
-        if i != len(numbers) - 1:
-            bottom_row += ' ' * 4
+    for i in range(len(op1))
+        if len(op1[i]) > len(op2[i]):
+            line1.append(" "*2 + op1[i])
+        else:
+         line1.append(" "*(len(op2[i]) - len(op1[i]) + 2) + op1[i])
 
-    if val:
-        arranged_problems = '\n'.join((top_row, bottom_row, dashes, solutions))
+    for i in range(len(op2)):
+        if len(op2[i]) > len(op1[i]):
+            line2.append(operator[i] + " " + op2[i])
+        else:
+           line2.append(operator[i] + " "*(len(op1[i]) - len(op2[i]) + 1) + op2[i])
+
+    for i in range(len(op1)):
+       line3.append("-"*(max(len(op1[i]), len(op2[i])) + 2))
+
+    if answer:
+        for i in range(len(op1)):
+            if operator[i] == "+":
+                ans = str(int(op1[i]) + int(op2[i]))
+            else:
+                ans = str(int(op1[i]) - int(op2[i]))
+
+            if len(ans) > max(len(op1[i]), len(op2[i])):
+               line4.append(" " + ans)
+            else:
+                line4.append(" "*(max(len(op1[i]), len(op2[i])) - len(ans) + 2) + ans)
+        arranged_questions = "    ".join(line1) + "\n" + "    ".join(line2) + "\n" + "    ".join(line3) + "\n" + "    ".join(line4)
     else:
-        arranged_problems = '\n'.join((top_row, bottom_row, dashes))
-    return arranged_problems
+        arranged_questions = "    ".join(line1) + "\n" + "    ".join(line2) + "\n" + "    ".join(line3)
+    return arranged_questions
